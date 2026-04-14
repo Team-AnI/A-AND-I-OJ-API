@@ -8,6 +8,9 @@ class OjApiClient {
     ensureAandiProtocolInterceptor(this.dio);
   }
 
+  static const _testCasesPath = '/v2/admin/testcases';
+  static const _submissionsPath = '/v2/admin/submissions';
+
   final String baseUrl;
   final Dio dio;
 
@@ -16,7 +19,7 @@ class OjApiClient {
   }) async {
     try {
       final response = await dio.get<dynamic>(
-        '$baseUrl/v1/admin/testcases',
+        '$baseUrl$_testCasesPath',
         options: Options(
           headers: {
             'Authorization': 'Bearer $accessToken',
@@ -57,7 +60,7 @@ class OjApiClient {
   Future<List<Submission>> getSubmissions({required String accessToken}) async {
     try {
       final response = await dio.get<dynamic>(
-        '$baseUrl/v1/admin/submissions',
+        '$baseUrl$_submissionsPath',
         options: Options(
           headers: {
             'Authorization': 'Bearer $accessToken',
