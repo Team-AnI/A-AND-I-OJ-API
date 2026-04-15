@@ -13,7 +13,8 @@ abstract class TestCase with _$TestCase {
     required String expectedOutputType,
   }) = _TestCase;
 
-  factory TestCase.fromJson(Map<String, dynamic> json) => _$TestCaseFromJson(json);
+  factory TestCase.fromJson(Map<String, dynamic> json) =>
+      _$TestCaseFromJson(json);
 }
 
 @freezed
@@ -24,7 +25,8 @@ abstract class ProblemTestCases with _$ProblemTestCases {
     required DateTime updatedAt,
   }) = _ProblemTestCases;
 
-  factory ProblemTestCases.fromJson(Map<String, dynamic> json) => _$ProblemTestCasesFromJson(json);
+  factory ProblemTestCases.fromJson(Map<String, dynamic> json) =>
+      _$ProblemTestCasesFromJson(json);
 }
 
 @freezed
@@ -38,7 +40,8 @@ abstract class SubmissionTestCase with _$SubmissionTestCase {
     required String? error,
   }) = _SubmissionTestCase;
 
-  factory SubmissionTestCase.fromJson(Map<String, dynamic> json) => _$SubmissionTestCaseFromJson(json);
+  factory SubmissionTestCase.fromJson(Map<String, dynamic> json) =>
+      _$SubmissionTestCaseFromJson(json);
 }
 
 @freezed
@@ -56,5 +59,79 @@ abstract class Submission with _$Submission {
     required DateTime? completedAt,
   }) = _Submission;
 
-  factory Submission.fromJson(Map<String, dynamic> json) => _$SubmissionFromJson(json);
+  factory Submission.fromJson(Map<String, dynamic> json) =>
+      _$SubmissionFromJson(json);
+}
+
+@freezed
+abstract class SubmissionOptions with _$SubmissionOptions {
+  const factory SubmissionOptions({required bool realtimeFeedback}) =
+      _SubmissionOptions;
+
+  factory SubmissionOptions.fromJson(Map<String, dynamic> json) =>
+      _$SubmissionOptionsFromJson(json);
+}
+
+@freezed
+abstract class SubmissionCreateRequest with _$SubmissionCreateRequest {
+  const factory SubmissionCreateRequest({
+    required String publicCode,
+    required String problemId,
+    required String language,
+    required String code,
+    required SubmissionOptions options,
+  }) = _SubmissionCreateRequest;
+
+  factory SubmissionCreateRequest.fromJson(Map<String, dynamic> json) =>
+      _$SubmissionCreateRequestFromJson(json);
+}
+
+@freezed
+abstract class SubmissionReceipt with _$SubmissionReceipt {
+  const factory SubmissionReceipt({
+    required String submissionId,
+    required String streamUrl,
+  }) = _SubmissionReceipt;
+
+  factory SubmissionReceipt.fromJson(Map<String, dynamic> json) =>
+      _$SubmissionReceiptFromJson(json);
+}
+
+@freezed
+abstract class SubmissionCaseResult with _$SubmissionCaseResult {
+  const factory SubmissionCaseResult({
+    int? caseId,
+    String? status,
+    double? timeMs,
+    double? memoryMb,
+    @JsonKey(fromJson: _asNullableString) String? output,
+    @JsonKey(fromJson: _asNullableString) String? error,
+  }) = _SubmissionCaseResult;
+
+  factory SubmissionCaseResult.fromJson(Map<String, dynamic> json) =>
+      _$SubmissionCaseResultFromJson(json);
+}
+
+@freezed
+abstract class SubmissionResultDetail with _$SubmissionResultDetail {
+  const factory SubmissionResultDetail({
+    required String submissionId,
+    String? problemId,
+    String? language,
+    required String status,
+    @Default(<SubmissionCaseResult>[]) List<SubmissionCaseResult> testCases,
+    DateTime? createdAt,
+    DateTime? completedAt,
+  }) = _SubmissionResultDetail;
+
+  factory SubmissionResultDetail.fromJson(Map<String, dynamic> json) =>
+      _$SubmissionResultDetailFromJson(json);
+}
+
+String? _asNullableString(Object? value) {
+  if (value == null) {
+    return null;
+  }
+  final normalized = value.toString();
+  return normalized.isEmpty ? null : normalized;
 }
