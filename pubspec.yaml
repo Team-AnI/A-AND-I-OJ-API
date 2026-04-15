@@ -4,17 +4,17 @@ version: 0.1.0
 publish_to: none
 
 environment:
-  sdk: ^3.10.4
+  sdk: ^3.5.3
 
 dependencies:
+  aandi_api_endpoints:
+    path: ../aandi_api_endpoints
   aandi_api_protocol:
     git:
-      url: git@github.com:Team-AnI/A-AND-I-PROTOCOL-API.git
+      url: https://github.com/Team-AnI/A-AND-I-PROTOCOL-API.git
       ref: v0.1.0
   aandi_auth:
-    git:
-      url: git@github.com:Team-AnI/A-AND-I-AUTH-API.git
-      ref: main
+    path: ../auth_api
   freezed_annotation: ^3.0.0
   json_annotation: ^4.9.0
   dio: ^5.9.2
