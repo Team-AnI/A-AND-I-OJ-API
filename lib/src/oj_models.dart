@@ -45,15 +45,15 @@ abstract class SubmissionTestCase with _$SubmissionTestCase {
 abstract class Submission with _$Submission {
   const factory Submission({
     required String submissionId,
-    required String submitterId,
-    required String submitterPublicCode,
-    required String problemId,
-    required String language,
-    required String code,
+    @Default('') String submitterId,
+    @Default('') String submitterPublicCode,
+    String? problemId,
+    String? language,
+    String? code,
     required String status,
-    required List<SubmissionTestCase> testCases,
-    required DateTime createdAt,
-    required DateTime? completedAt,
+    @Default(<SubmissionTestCase>[]) List<SubmissionTestCase> testCases,
+    DateTime? createdAt,
+    DateTime? completedAt,
   }) = _Submission;
 
   factory Submission.fromJson(Map<String, dynamic> json) => _$SubmissionFromJson(json);

@@ -7,22 +7,21 @@ part of 'oj_models.dart';
 // **************************************************************************
 
 _TestCase _$TestCaseFromJson(Map<String, dynamic> json) => _TestCase(
-  caseId: (json['caseId'] as num).toInt(),
-  args: json['args'] as List<dynamic>,
-  argTypes: (json['argTypes'] as List<dynamic>)
-      .map((e) => e as String)
-      .toList(),
-  expectedOutput: json['expectedOutput'],
-  expectedOutputType: json['expectedOutputType'] as String,
-);
+      caseId: (json['caseId'] as num).toInt(),
+      args: json['args'] as List<dynamic>,
+      argTypes:
+          (json['argTypes'] as List<dynamic>).map((e) => e as String).toList(),
+      expectedOutput: json['expectedOutput'],
+      expectedOutputType: json['expectedOutputType'] as String,
+    );
 
 Map<String, dynamic> _$TestCaseToJson(_TestCase instance) => <String, dynamic>{
-  'caseId': instance.caseId,
-  'args': instance.args,
-  'argTypes': instance.argTypes,
-  'expectedOutput': instance.expectedOutput,
-  'expectedOutputType': instance.expectedOutputType,
-};
+      'caseId': instance.caseId,
+      'args': instance.args,
+      'argTypes': instance.argTypes,
+      'expectedOutput': instance.expectedOutput,
+      'expectedOutputType': instance.expectedOutputType,
+    };
 
 _ProblemTestCases _$ProblemTestCasesFromJson(Map<String, dynamic> json) =>
     _ProblemTestCases(
@@ -61,21 +60,25 @@ Map<String, dynamic> _$SubmissionTestCaseToJson(_SubmissionTestCase instance) =>
     };
 
 _Submission _$SubmissionFromJson(Map<String, dynamic> json) => _Submission(
-  submissionId: json['submissionId'] as String,
-  submitterId: json['submitterId'] as String,
-  submitterPublicCode: json['submitterPublicCode'] as String,
-  problemId: json['problemId'] as String,
-  language: json['language'] as String,
-  code: json['code'] as String,
-  status: json['status'] as String,
-  testCases: (json['testCases'] as List<dynamic>)
-      .map((e) => SubmissionTestCase.fromJson(e as Map<String, dynamic>))
-      .toList(),
-  createdAt: DateTime.parse(json['createdAt'] as String),
-  completedAt: json['completedAt'] == null
-      ? null
-      : DateTime.parse(json['completedAt'] as String),
-);
+      submissionId: json['submissionId'] as String,
+      submitterId: json['submitterId'] as String? ?? '',
+      submitterPublicCode: json['submitterPublicCode'] as String? ?? '',
+      problemId: json['problemId'] as String?,
+      language: json['language'] as String?,
+      code: json['code'] as String?,
+      status: json['status'] as String,
+      testCases: (json['testCases'] as List<dynamic>?)
+              ?.map(
+                  (e) => SubmissionTestCase.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const <SubmissionTestCase>[],
+      createdAt: json['createdAt'] == null
+          ? null
+          : DateTime.parse(json['createdAt'] as String),
+      completedAt: json['completedAt'] == null
+          ? null
+          : DateTime.parse(json['completedAt'] as String),
+    );
 
 Map<String, dynamic> _$SubmissionToJson(_Submission instance) =>
     <String, dynamic>{
@@ -87,6 +90,6 @@ Map<String, dynamic> _$SubmissionToJson(_Submission instance) =>
       'code': instance.code,
       'status': instance.status,
       'testCases': instance.testCases,
-      'createdAt': instance.createdAt.toIso8601String(),
+      'createdAt': instance.createdAt?.toIso8601String(),
       'completedAt': instance.completedAt?.toIso8601String(),
     };
